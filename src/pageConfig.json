@@ -71,6 +71,14 @@
               "icon": "file-alt",
               "topics": ["process"],
               "markdown" : "/static/markdown/process/NewPagesHowto.md"
+            },
+            {
+              "route": "/some-new-process",
+              "name": "Some New Process",
+              "description": "adding a new process document",
+              "icon": "project-diagram",
+              "topics": ["process"],
+              "markdown" : "/static/markdown/process/SomeNewProcess.md"
             }
           ]
         }
