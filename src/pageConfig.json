@@ -27,6 +27,7 @@
             "faq",
             "more-stuff"
           ],
+          "owner": "",
           "markdown": "/static/markdown/faq.md"
         },
         {
@@ -35,7 +36,7 @@
           "description": "",
           "icon": "magnifying-glass",
           "topics": [],
-          "owner": "Justin",
+          "owner": "Justin O'Connor",
           "markdown": "/static/markdown/links.md"
         },
         {
@@ -52,6 +53,7 @@
               "topics": [
                 "nested"
               ],
+              "owner": "",
               "markdown": "/static/markdown/process/main.md"
             },
             {
@@ -68,6 +70,7 @@
                   "topics": [
                     "nested"
                   ],
+                  "owner": "",
                   "markdown": "/static/markdown/process/nested/deep-nest.md"
                 }
               ],
@@ -79,6 +82,7 @@
               "description": "",
               "icon": "file",
               "topics": [],
+              "owner": "",
               "markdown": "/static/markdown/process/something.md"
             }
           ],

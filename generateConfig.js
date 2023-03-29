@@ -40,6 +40,8 @@ function generatePageConfig() {
           header.description = value;
         } else if (key === 'icon') {
           header.icon = value;
+        } else if (key === 'owner') {
+          header.owner = value;
         }
       });
     }
@@ -87,7 +89,7 @@ function generatePageConfig() {
         }
       } else {
         // Extract header data from the markdown file
-        const { title, topics, description, icon } = extractHeader(filePath);
+        const { title, topics, description, icon, owner } = extractHeader(filePath);
 
         const pageName = path.basename(fileName, path.extname(fileName));
         const pageRoute = `${pageName}`.toLowerCase();
@@ -100,6 +102,7 @@ function generatePageConfig() {
           description: description || '',
           icon: icon || 'file',
           topics: topics || [],
+          owner: owner || '',
           markdown: markdownPath,
         };
 
