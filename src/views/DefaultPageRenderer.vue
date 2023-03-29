@@ -210,7 +210,7 @@ export default {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  background-color: #888;
+  background-color: #2d74da;
   border: none;
   border-radius: 20px;
 }

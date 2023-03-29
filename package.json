@@ -1,8 +1,8 @@
 {
-  "name": "playbook",
-  "version": "1.1.0",
+  "name": "github-pages-template",
+  "version": "1.0.0",
   "description": "",
-  "author": "Thomas Reinecke <thr@de.ibm.com>",
+  "author": "Justin O'Connor, inspired by Thomas Reinecke",
   "homepage": "",
   "private": false,
   "scripts": {
@@ -20,12 +20,10 @@
     "gh-pages": "GH_PAGES=true npm run build; git add .; git commit -m 'Update GitHub Pages'; git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.8",
-    "@fortawesome/fontawesome-free": "^5.3.1",
-    "@fortawesome/fontawesome-free-solid": "^5.0.13",
-    "@fortawesome/fontawesome-svg-core": "^1.2.2",
-    "@fortawesome/free-solid-svg-icons": "^5.3.1",
-    "@fortawesome/vue-fontawesome": "^0.1.1",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "^0.21.1",
     "highlight.js": "9.12.0",
     "liquor-tree": "^0.2.32",

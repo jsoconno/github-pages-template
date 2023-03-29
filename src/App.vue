@@ -180,7 +180,7 @@ export default {
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
-    background-color: #888;
+    background-color: #2d74da;
     border: none;
     border-radius: 20px;
   }

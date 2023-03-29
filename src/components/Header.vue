@@ -11,7 +11,7 @@
         xmlns="http://www.w3.org/2000/svg">
         <path d="M424 394H89a8 8 0 0 1 0-16h335a8 8 0 0 1 0 16zM424 265H89a8 8 0 0 1 0-16h335a8 8 0 0 1 0 16zM424 135H89a8 8 0 0 1 0-16h335a8 8 0 0 1 0 16z"/>
       </svg>
-      <span class="header__name">{{ name }} <b>Playbook</b></span>
+      <span class="header__name">{{ name }} <b>Documentation</b></span>
     </div>
     <nav class="nav"
       v-if="isVisible || isDesktop"

@@ -10,11 +10,11 @@ const outputPath = path.join(__dirname, 'src', 'pageConfig.json');
 // Define the header navigation and landing page
 const headerNavigation = [
   {
-    name: 'Playbook',
-    path: '/playbook',
+    name: 'Documentation',
+    path: '/documentation',
   },
 ];
-const landingPage = '/playbook';
+const landingPage = '/documentation';
 
 // Define the function to generate the page configuration
 function generatePageConfig() {
@@ -35,7 +35,7 @@ function generatePageConfig() {
         if (key === 'title') {
           header.title = value;
         } else if (key === 'topics') {
-          header.topics = value.split(',').map((s) => s.trim());
+          header.topics = value.split(',').map((s) => s.trim().toLowerCase().replace(' ', '-'));
         } else if (key === 'description') {
           header.description = value;
         } else if (key === 'icon') {
@@ -60,7 +60,7 @@ function generatePageConfig() {
           route: folderRoute,
           name: folderName,
           description: '',
-          icon: '',
+          icon: 'folder',
           children: [],
           topics: [],
         };
@@ -77,7 +77,7 @@ function generatePageConfig() {
             route: `/${pageRoute}`,
             name: pageName,
             description: '',
-            icon: '',
+            icon: 'folder',
             children: [],
             markdown: `/static/markdown/${pageRoute}/main.md`,
           };
@@ -98,7 +98,7 @@ function generatePageConfig() {
           route: `/${pageRoute}`,
           name: title || pageName,
           description: description || '',
-          icon: icon || '',
+          icon: icon || 'file',
           topics: topics || [],
           markdown: markdownPath,
         };
@@ -122,8 +122,8 @@ function generatePageConfig() {
   const rootRoute = landingPage.toLowerCase();
   const rootPage = {
     route: rootRoute,
-    name: 'Playbook',
-    description: 'This is the playbook',
+    name: 'Documentation',
+    description: 'This is the documentation',
     icon: 'address-book',
     children: [],
     topics: [],
