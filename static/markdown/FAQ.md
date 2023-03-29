@@ -1,3 +1,8 @@
+<!--
+title: FAQs
+icon: question-circle
+topics: faq
+-->
 This content is refreshed as new features and functions are introduced, or existing functions evolve.  Check back often!
 
 * [Introduction](/#/playbook/faq#introduction)

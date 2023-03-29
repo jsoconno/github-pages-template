@@ -18,6 +18,33 @@ const landingPage = '/playbook';
 
 // Define the function to generate the page configuration
 function generatePageConfig() {
+  // Define a function to extract the header data from a markdown file
+  function extractHeader(filePath) {
+    const header = {
+      title: '',
+      topics: [],
+      description: '',
+      icon: '',
+    };
+    const fileData = fs.readFileSync(filePath, 'utf8');
+    const headerMatch = fileData.match(/<!--([\s\S]*?)-->/);
+    if (headerMatch) {
+      const headerLines = headerMatch[1].trim().split('\n');
+      headerLines.forEach((line) => {
+        const [key, value] = line.split(':').map((s) => s.trim());
+        if (key === 'title') {
+          header.title = value;
+        } else if (key === 'topics') {
+          header.topics = value.split(',').map((s) => s.trim());
+        } else if (key === 'description') {
+          header.description = value;
+        } else if (key === 'icon') {
+          header.icon = value;
+        }
+      });
+    }
+    return header;
+  }
   // Define a recursive function to generate the page configuration
   function traverseDirectory(dirPath, parentPage, parentRoute) {
     const files = fs.readdirSync(dirPath);
@@ -59,6 +86,9 @@ function generatePageConfig() {
           parentPage.children.push(page);
         }
       } else {
+        // Extract header data from the markdown file
+        const { title, topics, description, icon } = extractHeader(filePath);
+
         const pageName = path.basename(fileName, path.extname(fileName));
         const pageRoute = `${pageName}`.toLowerCase();
         const markdownPath = filePath.replace(/.*\/static\/markdown\//, "/static/markdown/");
@@ -66,10 +96,10 @@ function generatePageConfig() {
         // Create the page object
         const page = {
           route: `/${pageRoute}`,
-          name: pageName,
-          description: '',
-          icon: '',
-          topics: [],
+          name: title || pageName,
+          description: description || '',
+          icon: icon || '',
+          topics: topics || [],
           markdown: markdownPath,
         };
 

@@ -20,10 +20,12 @@
       "children": [
         {
           "route": "/faq",
-          "name": "faq",
+          "name": "FAQs",
           "description": "",
-          "icon": "",
-          "topics": [],
+          "icon": "question-circle",
+          "topics": [
+            "faq"
+          ],
           "markdown": "/static/markdown/faq.md"
         },
         {
