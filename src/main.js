@@ -6,9 +6,14 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // All icons can be found here: https://fontawesome.com/search?m=free&o=r
+import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 Vue.use(VueTreeNavigation)
+
+for (const icon in far) {
+  library.add(far[icon])
+}
 library.add(fas)
 
 const filter = (text, length, clamp) => {

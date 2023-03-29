@@ -1,5 +1,6 @@
 import pageConfig from '../pageConfig.json'
 import axios from 'axios'
+import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 const DefaultPageRenderer = () => import('@/views/DefaultPageRenderer')
 var metaMap = {}
@@ -28,12 +29,14 @@ function processElement (node, parent) {
   if (node.children) {
     for (var i in node.children) {
       let child = node.children[i]
+      const iconDefinition = findIconDefinition({ prefix: 'far', iconName: child.icon })
+      const iconExists = iconDefinition && iconDefinition.iconName === child.icon
       tiles.push(
         {
           name: child.name,
           description: child.description,
           path: node.path + child.route,
-          icon: child.icon,
+          icon: iconExists ? ['far', child.icon] : child.icon,
           bgColor: child.bgColor,
           owner: child.owner,
           topics: child.topics

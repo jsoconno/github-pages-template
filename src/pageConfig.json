@@ -33,8 +33,9 @@
           "route": "/links",
           "name": "links",
           "description": "",
-          "icon": "file",
+          "icon": "magnifying-glass",
           "topics": [],
+          "owner": "Justin",
           "markdown": "/static/markdown/links.md"
         },
         {
@@ -43,6 +44,16 @@
           "description": "",
           "icon": "folder",
           "children": [
+            {
+              "route": "/main",
+              "name": "deeply nested content",
+              "description": "",
+              "icon": "cubes",
+              "topics": [
+                "nested"
+              ],
+              "markdown": "/static/markdown/process/main.md"
+            },
             {
               "route": "/process/nested",
               "name": "nested",
