@@ -19,6 +19,15 @@
       "icon": "address-book",
       "children": [
         {
+          "route": "/links",
+          "name": "Links",
+          "description": "",
+          "icon": "magnifying-glass",
+          "topics": [],
+          "owner": "Justin O'Connor",
+          "markdown": "/static/markdown/Links.md"
+        },
+        {
           "route": "/faq",
           "name": "FAQs",
           "description": "all about what ya don't know and if I made this really long what happens and even longer then now",
@@ -29,15 +38,6 @@
           ],
           "owner": "",
           "markdown": "/static/markdown/faq.md"
-        },
-        {
-          "route": "/links",
-          "name": "links",
-          "description": "",
-          "icon": "magnifying-glass",
-          "topics": [],
-          "owner": "Justin O'Connor",
-          "markdown": "/static/markdown/links.md"
         },
         {
           "route": "/process",
