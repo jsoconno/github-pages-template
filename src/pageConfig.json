@@ -7,7 +7,7 @@
     }
   ],
   "landingPage": "/documentation",
-  "topics": [
+  "tags": [
     "news",
     "process"
   ],
@@ -23,7 +23,7 @@
           "name": "Links",
           "description": "",
           "icon": "magnifying-glass",
-          "topics": [],
+          "tags": [],
           "owner": "Justin O'Connor",
           "markdown": "/static/markdown/Links.md"
         },
@@ -32,7 +32,7 @@
           "name": "FAQs",
           "description": "all about what ya don't know and if I made this really long what happens and even longer then now",
           "icon": "cubes",
-          "topics": [
+          "tags": [
             "faq",
             "more-stuff"
           ],
@@ -50,7 +50,7 @@
               "name": "deeply nested content",
               "description": "",
               "icon": "cubes",
-              "topics": [
+              "tags": [
                 "nested"
               ],
               "owner": "",
@@ -67,29 +67,29 @@
                   "name": "deeply nested content",
                   "description": "",
                   "icon": "cubes",
-                  "topics": [
+                  "tags": [
                     "nested"
                   ],
                   "owner": "",
                   "markdown": "/static/markdown/process/nested/deep-nest.md"
                 }
               ],
-              "topics": []
+              "tags": []
             },
             {
               "route": "/something",
               "name": "something",
               "description": "",
               "icon": "file",
-              "topics": [],
+              "tags": [],
               "owner": "",
               "markdown": "/static/markdown/process/something.md"
             }
           ],
-          "topics": []
+          "tags": []
         }
       ],
-      "topics": []
+      "tags": []
     }
   ]
 }

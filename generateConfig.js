@@ -22,7 +22,7 @@ function generatePageConfig() {
   function extractHeader(filePath) {
     const header = {
       title: '',
-      topics: [],
+      tags: [],
       description: '',
       icon: '',
     };
@@ -34,8 +34,8 @@ function generatePageConfig() {
         const [key, value] = line.split(':').map((s) => s.trim());
         if (key === 'title') {
           header.title = value;
-        } else if (key === 'topics') {
-          header.topics = value.split(',').map((s) => s.trim().toLowerCase().replace(' ', '-'));
+        } else if (key === 'tags') {
+          header.tags = value.split(',').map((s) => s.trim().toLowerCase().replace(' ', '-'));
         } else if (key === 'description') {
           header.description = value;
         } else if (key === 'icon') {
@@ -64,7 +64,7 @@ function generatePageConfig() {
           description: '',
           icon: 'folder',
           children: [],
-          topics: [],
+          tags: [],
         };
 
         traverseDirectory(filePath, folderPage, folderRoute);
@@ -89,7 +89,7 @@ function generatePageConfig() {
         }
       } else {
         // Extract header data from the markdown file
-        const { title, topics, description, icon, owner } = extractHeader(filePath);
+        const { title, tags, description, icon, owner } = extractHeader(filePath);
 
         const pageName = path.basename(fileName, path.extname(fileName));
         const pageRoute = `${pageName}`.toLowerCase();
@@ -101,7 +101,7 @@ function generatePageConfig() {
           name: title || pageName,
           description: description || '',
           icon: icon || 'file',
-          topics: topics || [],
+          tags: tags || [],
           owner: owner || '',
           markdown: markdownPath,
         };
@@ -117,7 +117,7 @@ function generatePageConfig() {
     appName: 'Git',
     headerNavigation,
     landingPage,
-    topics: ['news', 'process'],
+    tags: ['news', 'process'],
     pages: [],
   };
 
@@ -129,7 +129,7 @@ function generatePageConfig() {
     description: 'This is the documentation',
     icon: 'address-book',
     children: [],
-    topics: [],
+    tags: [],
   };
   traverseDirectory(markdownPath, rootPage, rootRoute);
   pageConfig.pages.push(rootPage);

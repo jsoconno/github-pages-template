@@ -12,8 +12,8 @@
 
     </section>
 
-    <section class="topics" v-if="topics">
-      <span tabindex="0" v-for="(topic, idx) in topics" :key="idx" class="tag" @keyup.enter="searchTopic(topic)" @click="searchTopic(topic)">{{topic}}</span>
+    <section class="tags" v-if="tags">
+      <span tabindex="0" v-for="(tag, idx) in tags" :key="idx" class="tag" @keyup.enter="searchTopic(tag)" @click="searchTopic(tag)">{{tag}}</span>
     </section>
 
     <vue-markdown class="content" :source="markdown"></vue-markdown>
@@ -60,7 +60,7 @@ export default {
       comment: '',
       likes: 0,
       dislikes: 0,
-      topics: null
+      tags: null
     }
   },
   mounted () {
@@ -107,8 +107,8 @@ export default {
     }
   },
   methods: {
-    searchTopic (topic) {
-      let filter = `topic:${topic}`
+    searchTopic (tag) {
+      let filter = `tag:${tag}`
       let query = Object.assign({}, this.$route.query, { search: filter })
       this.$router.push({ query })
     },
@@ -135,13 +135,13 @@ export default {
      * initialize - called whenever the DefaultPageRenderer needs to re-initialize to render a specific page
      */
     initialize (path) {
-      this.topics = null
+      this.tags = null
       if (!this.pageConfig.name) {
         let currentPath = this.$router.currentRoute.path
         this.pageConfig = ConfigManager.getMetaById(currentPath)
       }
 
-      console.log('PAGECONFIG: ', this.topics)
+      console.log('PAGECONFIG: ', this.tags)
 
       // post the visit to cloudant
       let route = this.$router.currentRoute.path
@@ -159,7 +159,7 @@ export default {
       if (this.pageConfig.markdown !== undefined) {
         const pathName = window.location.pathname
         const path = `${pathName.substring(0, pathName.length - 1)}${this.pageConfig.markdown}`
-        this.topics = this.pageConfig.topics
+        this.tags = this.pageConfig.tags
         var config = {headers: {'Cache-Control': 'no-cache'}}
         axios.get(path, config).then(response => {
           this.lastModified = response.headers['last-modified']
@@ -195,7 +195,7 @@ export default {
 </script>
 
 <style scoped>
-.topics {
+.tags {
   margin-left: 1rem;
 }
 

@@ -39,7 +39,7 @@ function processElement (node, parent) {
           icon: iconExists ? ['far', child.icon] : child.icon,
           bgColor: child.bgColor,
           owner: child.owner,
-          topics: child.topics
+          tags: child.tags
         }
       )
       processElement(child, node)
@@ -55,7 +55,7 @@ function processElement (node, parent) {
     icon: node.icon,
     bgColor: node.bgColor,
     owner: node.owner,
-    topics: node.topics,
+    tags: node.tags,
     breadCrumb: node.breadCrumb
   }
 

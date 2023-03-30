@@ -13,7 +13,7 @@ GIT Playbook is a documentation framework that allows you to create Documentatio
 * Mobile ready, responsive design
 * supports any level of document hierarchy
 * supports title, description & icon for every Folder & Document
-* Live Search/Filtering capability keyword and topic-based (no server infrastructure necessary for it)
+* Live Search/Filtering capability keyword and tag-based (no server infrastructure necessary for it)
 * All-In-One WebFrontend, only needs a webcontainer to run, optimized for deployment on GH Pages
 * Left-Sided Tree Navigator
 * Support for Multiple Playbooks in one app

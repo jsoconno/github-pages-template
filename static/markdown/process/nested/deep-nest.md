@@ -1,6 +1,6 @@
 <!--
 title: deeply nested content
 icon: cubes
-topics: nested
+tags: nested
 -->
 Deeply nested

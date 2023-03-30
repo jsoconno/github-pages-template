@@ -1,7 +1,7 @@
 
 # Markdown for WDP documentation cheatsheet
 
-Here's how to format Markdown in your WDP topics.
+Here's how to format Markdown in your WDP tags.
 
 **Headings:** Use #s followed by a blank space for notebook titles and section headings:
 
@@ -19,9 +19,9 @@ cloud
 beta blue
 codeblock python r scala
 ```
-In a ditamap, include this code in the topicref: `audience="attribute1 attribute2 attribute3"`. See any ditamap for an example.
+In a ditamap, include this code in the tagref: `audience="attribute1 attribute2 attribute3"`. See any ditamap for an example.
 
-Within a topic, you have to tag each element separately. Use this syntax on a line by itself right after the text you want to tag:
+Within a tag, you have to tag each element separately. Use this syntax on a line by itself right after the text you want to tag:
 `{: .attribute1 attribute2}`
 For bullets, put after the list to tag them all, or put in front of a single bullet to tag only that line.
 
@@ -80,7 +80,7 @@ Make sure that the section_ID is unique within the notebook.
 
 **External links:** Use this code and test all links!
 ``` markdown
-[Link text](https://url/to/topic.html){: new_window}
+[Link text](https://url/to/tag.html){: new_window}
 ```
 or
 ```html

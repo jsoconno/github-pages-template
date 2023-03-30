@@ -25,7 +25,7 @@
                 <h2 class="result__title">{{ result.name }}</h2>
               </router-link>
 
-              <span tabindex="0" v-for="(topic, idx) in result.topics" :key="idx" class="tag" @keyup.enter="searchTopic(topic)" @click="searchTopic(topic)">{{ topic }}</span>
+              <span tabindex="0" v-for="(tag, idx) in result.tags" :key="idx" class="tag" @keyup.enter="searchTopic(tag)" @click="searchTopic(tag)">{{ tag }}</span>
             </header>
             <p>{{ result.text | truncate(300, '...') }}</p>
           </li>
@@ -74,22 +74,22 @@ export default {
         this.$router.push({ query })
 
         this.searchResultsVisible = true
-        let filter = 'topic:'
-        if (this.searchKeywords.indexOf('topic:') > -1) {
+        let filter = 'tag:'
+        if (this.searchKeywords.indexOf('tag:') > -1) {
           this.searchResults = this.content.filter(result => {
-            let topics = (result.topics || []).map((topic) => {
-              return topic.toLowerCase()
+            let tags = (result.tags || []).map((tag) => {
+              return tag.toLowerCase()
             })
 
-            let topicExists = false
+            let tagExists = false
 
-            for (let i = 0; i < topics.length; i++) {
-              if (topics[i].indexOf(this.searchKeywords.toLowerCase().replace(filter, '')) > -1) {
-                topicExists = true
+            for (let i = 0; i < tags.length; i++) {
+              if (tags[i].indexOf(this.searchKeywords.toLowerCase().replace(filter, '')) > -1) {
+                tagExists = true
               }
             }
 
-            return topicExists
+            return tagExists
           })
         } else {
           this.searchResults = this.content.filter(result => {
@@ -104,8 +104,8 @@ export default {
         this.reset()
       }
     },
-    searchTopic (topic) {
-      let filter = `topic:${topic}`
+    searchTopic (tag) {
+      let filter = `tag:${tag}`
       let query = Object.assign({}, this.$route.query, { search: filter })
       this.searchKeywords = filter
       this.search()
@@ -142,7 +142,7 @@ export default {
 <style lang="scss">
   @import 'styles.scss';
 
-  .topics {
+  .tags {
     margin-left: 1rem;
   }
 

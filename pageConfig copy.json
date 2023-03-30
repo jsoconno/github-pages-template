@@ -7,7 +7,7 @@
     }
   ],
   "landingPage": "/playbook",
-  "topics": [
+  "tags": [
   	"news"
   ],
   "pages": [
@@ -22,14 +22,14 @@
           "name": "Whats new ?",
           "description": "recent announcements, news, latest and greatest",
           "icon": "bullhorn",
-          "topics": ["news"],
+          "tags": ["news"],
           "markdown" : "/static/markdown/whatsnew/Current.md"
         },
         {
           "route": "/links",
           "name": "Helpful Links",
           "description": "how to go from here ?",
-          "topics": [],
+          "tags": [],
           "icon": "link",
           "markdown" : "/static/markdown/Links.md"
         },
@@ -37,7 +37,7 @@
           "route": "/faq",
           "name": "FAQs",
           "description": "frequently asked questions are covered here",
-          "topics": [],
+          "tags": [],
           "icon": "question-circle",
           "markdown" : "/static/markdown/FAQ.md"
         },
@@ -45,7 +45,7 @@
           "route": "/roadmap",
           "name": "Our Roadmap",
           "description": "aligning our development plans with our stakeholders",
-          "topics": [],
+          "tags": [],
           "icon": "map-marked-alt",
           "markdown" : "/static/markdown/Roadmap.md"
         },
@@ -54,14 +54,14 @@
           "name": "Process Documentation",
           "description": "anything about process",
           "icon": "project-diagram",
-          "topics": ["process"],
+          "tags": ["process"],
           "children": [
             {
               "route": "/introduction",
               "name": "Process Introduction",
               "description": "how to read the process documentation",
               "icon": "project-diagram",
-              "topics": ["process"],
+              "tags": ["process"],
               "markdown" : "/static/markdown/process/Introduction.md"
             },
             {
@@ -69,7 +69,7 @@
               "name": "New Pages HowTo",
               "description": "how to create new Pages on the playbook",
               "icon": "file-alt",
-              "topics": ["process"],
+              "tags": ["process"],
               "markdown" : "/static/markdown/process/NewPagesHowto.md"
             },
             {
@@ -77,7 +77,7 @@
               "name": "Some New Process",
               "description": "adding a new process document",
               "icon": "project-diagram",
-              "topics": ["process"],
+              "tags": ["process"],
               "markdown" : "/static/markdown/process/SomeNewProcess.md"
             }
           ]
