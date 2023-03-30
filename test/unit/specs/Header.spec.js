@@ -6,6 +6,6 @@ describe('Header.vue', () => {
     const Constructor = Vue.extend(Header)
     const vm = new Constructor().$mount()
     expect(vm.$el.querySelector('.header__name').textContent)
-      .to.equal('playbook')
+      .to.equal('documentation')
   })
 })

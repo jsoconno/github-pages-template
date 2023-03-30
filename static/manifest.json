@@ -1,6 +1,6 @@
 {
-  "name": "playbook",
-  "short_name": "playbook",
+  "name": "documentation",
+  "short_name": "documentation",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",

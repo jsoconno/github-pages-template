@@ -1,7 +1,7 @@
 
 # Markdown for WDP documentation cheatsheet
 
-Here's how to format Markdown in your WDP tags.
+Here's how to format Markdown in your documentation.
 
 **Headings:** Use #s followed by a blank space for notebook titles and section headings:
 
