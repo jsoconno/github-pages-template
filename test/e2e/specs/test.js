@@ -12,7 +12,7 @@ module.exports = {
       .url(devServer)
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('.header')
-      .assert.containsText('span', 'playbook')
+      .assert.containsText('span', 'documentation')
       .end()
   }
 }
