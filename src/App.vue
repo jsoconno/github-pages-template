@@ -14,8 +14,10 @@
       </nav>
       <router-view v-if="!searchResultsVisible"></router-view>
       <div class="container" v-else>
-        <h1 class="results__heading" v-if="searchResults.length">{{searchResults.length}} results matching "{{searchKeywords}}"</h1>
-        <h1 class="results__heading" v-else>No results matching "{{searchKeywords}}"</h1>
+        <h1 class="results__heading" v-if="searchResults.length && searchKeywords.includes('tag:')">{{searchResults.length}} tags matching "{{searchKeywords.replace('tag:', '')}}".</h1>
+        <h1 class="results__heading" v-else-if="searchResults.length">{{searchResults.length}} keywords matching "{{searchKeywords}}".</h1>
+        <h1 class="results__heading" v-else-if="!searchResults.length && searchKeywords.includes('tag:')">No tags matching "{{searchKeywords.replace('tag:', '')}}".</h1>
+        <h1 class="results__heading" v-else>No results matching "{{searchKeywords}}".</h1>
 
         <ul class="results__search">
           <li class="result" v-for="(result, index) in searchResults" 
