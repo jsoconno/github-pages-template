@@ -29,7 +29,8 @@ const getContent = (page, parent) => {
       owner: page.owner,
       path: (parent) ? `${parent}${page.route}` : page.route,
       text: '',
-      wordCount: 0
+      wordCount: 0,
+      tags: page.tags
     }
     if (page.markdown) {
       let mdPath = path.join(__dirname, '..', page.markdown);
