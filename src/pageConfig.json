@@ -22,7 +22,10 @@
           "route": "/faq",
           "name": "Frequently Asked Questions",
           "description": "A collection of frequently asked questions.",
-          "icon": "question",
+          "icon": [
+            "fas",
+            "question"
+          ],
           "tags": [
             "questions"
           ],
@@ -33,7 +36,10 @@
           "route": "/links",
           "name": "Useful Links",
           "description": "Helpful links that you will use often.",
-          "icon": "link",
+          "icon": [
+            "fas",
+            "link"
+          ],
           "tags": [],
           "owner": "",
           "markdown": "/static/markdown/Links.md"
@@ -42,13 +48,19 @@
           "route": "/Process",
           "name": "Process",
           "description": "",
-          "icon": "folder",
+          "icon": [
+            "far",
+            "folder"
+          ],
           "children": [
             {
               "route": "/installing vs code",
               "name": "Install VS Code",
               "description": "How to install Visual Studio Code.",
-              "icon": "computer",
+              "icon": [
+                "fas",
+                "computer"
+              ],
               "tags": [
                 "code"
               ],
@@ -59,7 +71,10 @@
               "route": "/raising a pull request in github",
               "name": "Raise A Pull Request in Github",
               "description": "Process documentation for how to raise a pull request in GitHub.",
-              "icon": "code",
+              "icon": [
+                "fab",
+                "github"
+              ],
               "tags": [
                 "pull-request",
                 "code"

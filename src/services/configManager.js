@@ -1,6 +1,5 @@
 import pageConfig from '../pageConfig.json'
 import axios from 'axios'
-import { findIconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 const DefaultPageRenderer = () => import('@/views/DefaultPageRenderer')
 var metaMap = {}
@@ -29,14 +28,12 @@ function processElement (node, parent) {
   if (node.children) {
     for (var i in node.children) {
       let child = node.children[i]
-      const iconDefinition = findIconDefinition({ prefix: 'far', iconName: child.icon })
-      const iconExists = iconDefinition && iconDefinition.iconName === child.icon
       tiles.push(
         {
           name: child.name,
           description: child.description,
           path: node.path + child.route,
-          icon: iconExists ? ['far', child.icon] : child.icon,
+          icon: child.icon,
           bgColor: child.bgColor,
           owner: child.owner,
           tags: child.tags
@@ -83,6 +80,10 @@ function generateRoutingConfig (baseConfig) {
   )
   return pages
 }
+
+/**
+ * iconExists - check if the fontawesome icon exists
+ */
 
 export default {
   /**
@@ -134,5 +135,4 @@ export default {
         })
     })
   }
-
 }

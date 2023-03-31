@@ -25,6 +25,8 @@ function generatePageConfig() {
       tags: [],
       description: '',
       icon: '',
+      icon_style: 'fas',
+      owner: ''
     };
     const fileData = fs.readFileSync(filePath, 'utf8');
     const headerMatch = fileData.match(/<!--([\s\S]*?)-->/);
@@ -40,6 +42,8 @@ function generatePageConfig() {
           header.description = value;
         } else if (key === 'icon') {
           header.icon = value;
+        } else if (key === 'icon-style') {
+          header.icon_style = value;
         } else if (key === 'owner') {
           header.owner = value;
         }
@@ -62,7 +66,7 @@ function generatePageConfig() {
           route: folderRoute,
           name: folderName,
           description: '',
-          icon: 'folder',
+          icon: ['far', 'folder'],
           children: [],
           tags: [],
         };
@@ -79,7 +83,7 @@ function generatePageConfig() {
             route: `/${pageRoute}`,
             name: pageName,
             description: '',
-            icon: 'folder',
+            icon: ['far', 'folder'],
             children: [],
             markdown: `/static/markdown/${pageRoute}/main.md`,
           };
@@ -89,7 +93,7 @@ function generatePageConfig() {
         }
       } else {
         // Extract header data from the markdown file
-        const { title, tags, description, icon, owner } = extractHeader(filePath);
+        const { title, tags, description, icon, owner, icon_style } = extractHeader(filePath);
 
         const pageName = path.basename(fileName, path.extname(fileName));
         const pageRoute = `${pageName}`.toLowerCase();
@@ -100,7 +104,7 @@ function generatePageConfig() {
           route: `/${pageRoute}`,
           name: title || pageName,
           description: description || '',
-          icon: icon || 'file',
+          icon: [icon_style, icon] || ['far', 'file'],
           tags: tags || [],
           owner: owner || '',
           markdown: markdownPath,
