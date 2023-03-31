@@ -8,7 +8,7 @@
     >
       <h2 class="banner__title">{{ pageConfig.name }}</h2>
       <h4 class="banner__text">{{ pageConfig.description }}</h4>
-      <p class="banner__timestamp">{{ lastModified }}</p>
+      <p class="banner__timestamp">Last Modified: {{ formatTimestamp(lastModified) }}</p>
 
     </section>
 
@@ -189,6 +189,19 @@ export default {
         document.querySelector(`main > .container`).scrollTo(0, 0)
         this.initialScroll = true
       }
+    },
+    formatTimestamp (timestamp) {
+      const date = new Date(timestamp)
+      const formattedDate = new Intl.DateTimeFormat(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+      }).format(date)
+
+      return formattedDate
     }
   }
 }

@@ -20,70 +20,52 @@
       "children": [
         {
           "route": "/faq",
-          "name": "FAQs",
-          "description": "all about what ya don't know and if I made this really long what happens and even longer then now",
-          "icon": "cubes",
+          "name": "Frequently Asked Questions",
+          "description": "A collection of frequently asked questions.",
+          "icon": "question",
           "tags": [
-            "faq",
-            "more-stuff"
+            "questions"
           ],
           "owner": "",
           "markdown": "/static/markdown/FAQ.md"
         },
         {
           "route": "/links",
-          "name": "Links",
-          "description": "",
-          "icon": "magnifying-glass",
+          "name": "Useful Links",
+          "description": "Helpful links that you will use often.",
+          "icon": "link",
           "tags": [],
-          "owner": "Justin O'Connor",
+          "owner": "",
           "markdown": "/static/markdown/Links.md"
         },
         {
-          "route": "/process",
-          "name": "process",
+          "route": "/Process",
+          "name": "Process",
           "description": "",
           "icon": "folder",
           "children": [
             {
-              "route": "/main",
-              "name": "deeply nested content",
-              "description": "",
-              "icon": "cubes",
+              "route": "/installing vs code",
+              "name": "Install VS Code",
+              "description": "How to install Visual Studio Code.",
+              "icon": "computer",
               "tags": [
-                "nested"
+                "code"
               ],
               "owner": "",
-              "markdown": "/static/markdown/process/main.md"
+              "markdown": "/static/markdown/Process/Installing VS Code.md"
             },
             {
-              "route": "/process/nested",
-              "name": "nested",
-              "description": "",
-              "icon": "folder",
-              "children": [
-                {
-                  "route": "/deep-nest",
-                  "name": "deeply nested content",
-                  "description": "",
-                  "icon": "cubes",
-                  "tags": [
-                    "nested"
-                  ],
-                  "owner": "",
-                  "markdown": "/static/markdown/process/nested/deep-nest.md"
-                }
+              "route": "/raising a pull request in github",
+              "name": "Raise A Pull Request in Github",
+              "description": "Process documentation for how to raise a pull request in GitHub.",
+              "icon": "code",
+              "tags": [
+                "pull-request",
+                "code"
               ],
-              "tags": []
-            },
-            {
-              "route": "/something",
-              "name": "something",
-              "description": "",
-              "icon": "file",
-              "tags": [],
               "owner": "",
-              "markdown": "/static/markdown/process/something.md"
+              "markdown": "/static/markdown/Process/Raising a Pull Request In GitHub.md"
             }
           ],
           "tags": []
