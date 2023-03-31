@@ -70,7 +70,14 @@ export default {
     toggleMenu () {
       this.isNavOpen = !this.isNavOpen
     },
-    search ($event) {
+    async search ($event) {
+      if (!this.content.length) {
+        try {
+          this.content = await ConfigManager.getStatus()
+        } catch (error) {
+          console.error('Error fetching content', error)
+        }
+      }
       if (this.searchKeywords) {
         let query = Object.assign({}, this.$route.query, { search: this.searchKeywords })
         this.$router.push({ query })
