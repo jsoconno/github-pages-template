@@ -69,55 +69,58 @@ export default {
       this.$emit('toggleMenu')
     },
     async search ($event) {
-      if (!this.content.length) {
-        try {
-          this.content = await ConfigManager.getStatus()
-        } catch (error) {
-          console.error('Error fetching content', error)
+      return new Promise(async (resolve) => {
+        if (!this.content.length) {
+          try {
+            this.content = await ConfigManager.getStatus()
+          } catch (error) {
+            console.error('Error fetching content', error)
+          }
         }
-      }
-      if (this.searchKeywords) {
-        let query = Object.assign({}, this.$route.query, { search: this.searchKeywords })
-        this.$router.push({ query })
+        if (this.searchKeywords) {
+          let query = Object.assign({}, this.$route.query, { search: this.searchKeywords })
+          this.$router.push({ query })
 
-        this.searchResultsVisible = true
-        let filter = 'tag:'
-        if (this.searchKeywords.indexOf('tag:') > -1) {
-          this.searchResults = this.content.filter(result => {
-            let tags = (result.tags || []).map((tag) => {
-              return tag.toLowerCase()
-            })
+          this.searchResultsVisible = true
+          let filter = 'tag:'
+          if (this.searchKeywords.indexOf('tag:') > -1) {
+            this.searchResults = this.content.filter(result => {
+              let tags = (result.tags || []).map((tag) => {
+                return tag.toLowerCase()
+              })
 
-            let tagExists = false
+              let tagExists = false
 
-            for (let i = 0; i < tags.length; i++) {
-              if (tags[i].indexOf(this.searchKeywords.toLowerCase().replace(filter, '')) > -1) {
-                tagExists = true
+              for (let i = 0; i < tags.length; i++) {
+                if (tags[i].indexOf(this.searchKeywords.toLowerCase().replace(filter, '')) > -1) {
+                  tagExists = true
+                }
               }
-            }
 
-            return tagExists
-          })
+              return tagExists
+            })
+          } else {
+            this.searchResults = this.content.filter(result => {
+              return (result.text || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1 ||
+                (result.name || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1
+            })
+            this.$emit('updateSearchResults', this.searchResults)
+          }
         } else {
-          this.searchResults = this.content.filter(result => {
-            return (result.text || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1 ||
-              (result.name || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1
-          })
-          this.$emit('updateSearchResults', this.searchResults)
+          let query = this.$route.query
+          delete query.search
+          this.$router.push({ query })
+          this.reset()
         }
-      } else {
-        let query = this.$route.query
-        delete query.search
-        this.$router.push({ query })
-        this.reset()
-      }
-      this.$emit('updateSearchKeywords', this.searchKeywords)
+        this.$emit('updateSearchKeywords', this.searchKeywords)
+        resolve()
+      })
     },
-    searchTopic (tag) {
+    async searchTopic (tag) {
       let filter = `tag:${tag}`
       let query = Object.assign({}, this.$route.query, { search: filter })
       this.searchKeywords = filter
-      this.search()
+      await this.search()
       this.$router.push({ query })
       this.$emit('updateSearchKeywords', this.searchKeywords)
       this.$emit('updateSearchResults', this.searchResults)
