@@ -104,7 +104,6 @@ export default {
               return (result.text || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1 ||
                 (result.name || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1
             })
-            this.$emit('updateSearchResults', this.searchResults)
           }
         } else {
           let query = this.$route.query
@@ -112,6 +111,8 @@ export default {
           this.$router.push({ query })
           this.reset()
         }
+
+        this.$emit('updateSearchResults', this.searchResults)
         this.$emit('updateSearchKeywords', this.searchKeywords)
         resolve()
       })
