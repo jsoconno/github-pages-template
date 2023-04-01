@@ -119,6 +119,8 @@ export default {
       this.searchKeywords = filter
       this.search()
       this.$router.push({ query })
+      this.$emit('updateSearchKeywords', this.searchKeywords)
+      this.$emit('updateSearchResults', this.searchResults)
     },
     reset () {
       this.$emit('updateSearchKeywords', '')
