@@ -35,9 +35,9 @@ export default {
       name: ConfigManager.getBaseConfig().appName,
       list: ConfigManager.getBaseConfig().headerNavigation,
       content: [],
-    searchKeywords: "",
-    searchResultsVisible: false,
-    searchResults: []
+      searchKeywords: '',
+      searchResultsVisible: false,
+      searchResults: []
     }
   },
   created () {
