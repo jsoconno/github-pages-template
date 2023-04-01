@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header @toggleMenu="toggleMenu" @updateSearchKeywords="updateSearchKeywords" @updateSearchResults="updateSearchResults" @searchTopic="searchTopic"/>
+    <Header ref="headerComponent" @toggleMenu="toggleMenu" @updateSearchKeywords="updateSearchKeywords" @updateSearchResults="updateSearchResults" @searchTopic="searchTopic"/>
     <main>
       <nav class="main__nav" :class="{ active: isNavOpen }">
         <vue-tree-navigation :items="tocItems" :defaultOpenLevel="1"/>
@@ -72,6 +72,8 @@ export default {
     searchTopic (tag) {
       let filter = `tag:${tag}`
       let query = Object.assign({}, this.$route.query, { search: filter })
+      this.searchKeywords = filter
+      this.search()
       this.$router.push({ query })
     }
   },
