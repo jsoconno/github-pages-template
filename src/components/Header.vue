@@ -34,7 +34,10 @@ export default {
       isDesktop: false,
       name: ConfigManager.getBaseConfig().appName,
       list: ConfigManager.getBaseConfig().headerNavigation,
-      content: []
+      content: [],
+    searchKeywords: "",
+    searchResultsVisible: false,
+    searchResults: []
     }
   },
   created () {
