@@ -59,6 +59,7 @@ export default {
     },
     updateSearchResults (results) {
       this.searchResults = results
+      this.searchResultsVisible = true
     },
     search () {
       if (this.searchKeywords) {
