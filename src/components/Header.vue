@@ -92,7 +92,7 @@ export default {
               let tagExists = false
 
               for (let i = 0; i < tags.length; i++) {
-                if (tags[i].indexOf(this.searchKeywords.toLowerCase().replace(filter, '')) > -1) {
+                if (tags[i] === this.searchKeywords.toLowerCase().replace(filter, '')) {
                   tagExists = true
                 }
               }
