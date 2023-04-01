@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header @toggleMenu="toggleMenu" @updateSearchKeywords="updateSearchKeywords" @updateSearchResults="updateSearchResults"/>
+    <Header @toggleMenu="toggleMenu" @updateSearchKeywords="updateSearchKeywords" @updateSearchResults="updateSearchResults" @searchTopic="searchTopic"/>
     <main>
       <nav class="main__nav" :class="{ active: isNavOpen }">
         <vue-tree-navigation :items="tocItems" :defaultOpenLevel="1"/>
@@ -68,6 +68,11 @@ export default {
       } else {
         this.searchResultsVisible = false
       }
+    },
+    searchTopic (tag) {
+      let filter = `tag:${tag}`
+      let query = Object.assign({}, this.$route.query, { search: filter })
+      this.$router.push({ query })
     }
   },
   watch: {

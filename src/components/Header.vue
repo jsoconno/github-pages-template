@@ -119,12 +119,9 @@ export default {
     },
     async searchTopic (tag) {
       let filter = `tag:${tag}`
-      let query = Object.assign({}, this.$route.query, { search: filter })
       this.searchKeywords = filter
       await this.search()
-      this.$router.push({ query })
-      this.$emit('updateSearchKeywords', this.searchKeywords)
-      this.$emit('updateSearchResults', this.searchResults)
+      this.$emit('searchTopic', tag)
     },
     reset () {
       this.$emit('updateSearchKeywords', '')
