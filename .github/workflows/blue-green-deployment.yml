@@ -50,8 +50,7 @@ jobs:
           npm run build
           git add .
           git commit -m 'Update GitHub Pages'
-          git pull --rebase --strategy=ours origin $TARGET_BRANCH
-          git subtree push --prefix dist origin $TARGET_BRANCH
+          git subtree push --force --prefix dist origin $TARGET_BRANCH
 
           echo $TARGET_BRANCH
           # Set GitHub Pages source
