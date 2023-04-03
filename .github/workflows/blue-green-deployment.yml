@@ -1,29 +1,4 @@
-name: Blue-Green Deployment
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 12
-
-      - name: Install dependencies and build the app
-        run: |
-          npm ci
-          GH_PAGES=true npm run build
-
-      - name: Deploy to GitHub Pages
+- name: Deploy to GitHub Pages
         env:
           ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
@@ -41,13 +16,18 @@ jobs:
           fi
 
           git checkout -b $target_branch
+
+          # Set the token as an extraheader to authenticate with Git
+          git config http.https://github.com.extraheader "Authorization: token $ACTIONS_TOKEN"
+
+          # Push the new branch to the remote repository using the token for authentication
           git push origin $target_branch
 
           echo $target_branch
           git branch
 
           # Deploy to the target branch
-          npx gh-pages -d dist -r "https://github-actions:${ACTIONS_TOKEN}@github.com/${{ github.repository }}.git" -- -b $target_branch
+          npx gh-pages -d dist -r "https://github.com/${{ github.repository }}.git" -- -b $target_branch
 
           # Update the GitHub Pages source branch
           curl -X PATCH -H "Authorization: token $ACTIONS_TOKEN" \
