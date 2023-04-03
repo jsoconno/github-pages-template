@@ -51,7 +51,7 @@ jobs:
           npm run build
           git add .
           git commit -m 'Update GitHub Pages'
-          git subtree push --prefix dist origin gh-pages
+          git subtree push --prefix dist origin $target_branch
 
           # # Deploy to the target branch
           # npx gh-pages -d dist -r "https://${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git" -- -b $target_branch
