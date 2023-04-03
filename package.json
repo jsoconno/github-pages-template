@@ -17,8 +17,7 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "lint:css": "stylelint 'src/**/*.vue'",
-    "gh-pages": "GH_PAGES=true npm run build; git add .; git commit -m 'Update GitHub Pages'; git subtree push --prefix dist origin gh-pages",
-    "deploy": "gh-pages -d dist"
+    "gh-pages": "GH_PAGES=true npm run build; git add .; git commit -m 'Update GitHub Pages'; git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
