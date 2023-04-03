@@ -47,7 +47,7 @@ jobs:
           echo $target_branch
           git branch
 
-          GH_PAGES=true npm
+          GH_PAGES=true
           npm run build
           git add .
           git commit -m 'Update GitHub Pages'
