@@ -36,6 +36,8 @@ jobs:
         # Check if the new branch exists, and if not, create it
         if ! git ls-remote --exit-code --heads origin $NEW_BRANCH; then
           git checkout --orphan $NEW_BRANCH
+          git config user.name "GitHub Action"
+          git config user.email "github-action@users.noreply.github.com"
           git rm -rf .
           git commit --allow-empty -m "Initialize $NEW_BRANCH branch"
           git push origin $NEW_BRANCH
@@ -53,6 +55,7 @@ jobs:
         git add .
         git commit -m "Update GitHub Pages"
         git push
+
 
     - name: Update GitHub Pages branch
       run: |
