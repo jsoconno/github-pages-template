@@ -24,9 +24,7 @@ jobs:
         run: |
           npm ci
           npm run build
-
-          # Stash any local changes, including untracked files
-          git stash save --include-untracked
+          ls
 
       - name: Deploy to GitHub Pages
         env:
