@@ -67,31 +67,26 @@ export default {
         // Your search logic here
       } else {
         this.searchResultsVisible = false
+        let query = Object.assign({}, this.$route.query)
+        delete query.search
+        this.$router.replace({ query })
       }
     },
     searchTopic (tag) {
       let filter = `tag:${tag}`
       let query = Object.assign({}, this.$route.query, { search: filter })
-      this.searchKeywords = filter
-      this.search()
       this.$router.push({ query })
     }
   },
   watch: {
     $route: {
-      immediate: true,
       handler: function (val, oldVal) {
-        let url = window.location.href
-        if (url.indexOf('?') > -1) {
-          let queryString = url.substring(url.indexOf('?') + 1)
-          let queryObj = JSON.parse('{"' + decodeURIComponent(queryString.replace(/&/g, '","').replace(/=/g, '": "')) + '"}')
-          if (queryObj && queryObj.search) {
-            this.searchKeywords = queryObj.search
-            this.search()
-          }
-        } else {
-          this.searchKeywords = ''
-          this.searchResultsVisible = false
+        let newSearchQuery = val.query.search || ''
+        let oldSearchQuery = oldVal.query.search || ''
+
+        if (newSearchQuery !== oldSearchQuery) {
+          this.searchKeywords = newSearchQuery
+          this.search()
         }
       }
     }

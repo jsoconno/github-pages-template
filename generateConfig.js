@@ -10,7 +10,7 @@ const outputPath = path.join(__dirname, 'src', 'pageConfig.json');
 // Define the header navigation and landing page
 const headerNavigation = [
   {
-    name: 'Documentation',
+    name: 'Documentation X',
     path: '/documentation',
   },
 ];
