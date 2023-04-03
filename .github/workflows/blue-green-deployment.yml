@@ -19,10 +19,12 @@ jobs:
           node-version: 12
 
       - name: Install dependencies and build the app
+        env:
+          GH_PAGES: true
         run: |
           npm ci
-          GH_PAGES=true npm run build
-          
+          npm run build
+
           # Stash any local changes, including untracked files
           git stash save --include-untracked
 
