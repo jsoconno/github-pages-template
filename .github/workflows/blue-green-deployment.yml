@@ -44,6 +44,7 @@ jobs:
             target_branch="gh-pages-blue"
           fi
 
+          echo $target_branch
           TARGET_BRANCH=$target_branch npm run gh-pages
 
           
