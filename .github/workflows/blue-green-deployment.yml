@@ -41,6 +41,7 @@ jobs:
           fi
 
           git checkout -b $target_branch
+          git remote set-url origin "https://${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git"
           git push origin $target_branch
 
           echo $target_branch
