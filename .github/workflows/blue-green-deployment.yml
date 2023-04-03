@@ -45,6 +45,7 @@ jobs:
           fi
 
           echo $target_branch
-          TARGET_BRANCH=$target_branch npm run gh-pages
+          git checkout -b $target_branch
+          npm run gh-pages -- --TARGET_BRANCH=$target_branch
 
           

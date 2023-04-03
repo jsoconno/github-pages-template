@@ -17,7 +17,7 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "lint:css": "stylelint 'src/**/*.vue'",
-    "gh-pages": "cross-var GH_PAGES=true TARGET_BRANCH=$TARGET_BRANCH npm run build && (git diff --cached --quiet || (git add . && git commit -m 'Update GitHub Pages' && git subtree push --prefix dist origin $TARGET_BRANCH))"
+    "gh-pages": "npm run build && gh-pages -d dist -b $TARGET_BRANCH"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -50,7 +50,6 @@
     "copy-webpack-plugin": "^4.1.1",
     "cross-env": "^5.0.5",
     "cross-spawn": "^5.1.0",
-    "cross-var": "^1.1.0",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "eslint": "^4.9.0",
