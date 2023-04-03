@@ -56,6 +56,7 @@ jobs:
 
           echo $target_branch
           git branch
+          ls
 
           GH_PAGES=true
           npm run build
