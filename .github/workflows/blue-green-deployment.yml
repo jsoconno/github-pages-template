@@ -30,11 +30,8 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-          # Set the token as an extraheader to authenticate with Git
-          git config http.https://github.com.extraheader "Authorization: token $ACTIONS_TOKEN"
-
           # Determine the current branch (blue or green)
-          current_branch=$(curl -s https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
+          current_branch=$(curl -s -H "Authorization: token $ACTIONS_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
           if [ "$current_branch" = "gh-pages-blue" ]; then
             echo "green"
             target_branch="gh-pages-green"
@@ -44,18 +41,16 @@ jobs:
           fi
 
           git checkout -b $target_branch
-
-          # Push the new branch to the remote repository using the token for authentication
           git push origin $target_branch
 
           echo $target_branch
           git branch
 
           # Deploy to the target branch
-          npx gh-pages -d dist -r "https://github.com/${{ github.repository }}.git" -- -b $target_branch
+          npx gh-pages -d dist -r "https://github-actions:${ACTIONS_TOKEN}@github.com/${{ github.repository }}.git" -- -b $target_branch
 
           # Update the GitHub Pages source branch
-          curl -X PATCH \
+          curl -X PATCH -H "Authorization: token $ACTIONS_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${{ github.repository }}/pages \
             -d "{\"source\":{\"branch\":\"$target_branch\",\"path\":\"/\"}}"
