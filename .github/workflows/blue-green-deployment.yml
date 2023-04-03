@@ -30,6 +30,9 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
+          # Stash any local changes
+          git stash
+
           # Determine the current branch (blue or green)
           current_branch=$(curl -s -H "Authorization: token $ACTIONS_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
           echo $current_branch
