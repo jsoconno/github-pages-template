@@ -33,20 +33,19 @@ jobs:
           NEW_BRANCH="gh-pages-blue"
         fi
 
-        # # Checkout the new branch
-        # git checkout $NEW_BRANCH
+        # Checkout the new branch
+        git checkout $NEW_BRANCH
 
-        # # Move the built app to the new branch
-        # mv dist/* .
-        # rm -rf dist
+        # Move the built app to the new branch
+        mv dist/* .
+        rm -rf dist
 
         # Commit and push the changes to the new branch
         git config user.name "GitHub Action"
         git config user.email "github-action@users.noreply.github.com"
         git add .
         git commit -m "Update GitHub Pages"
-        git remote set-url origin "https://${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
-        git subtree push --prefix dist origin $NEW_BRANCH
+        git push
 
     - name: Update GitHub Pages branch
       run: |
