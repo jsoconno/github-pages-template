@@ -19,6 +19,7 @@ jobs:
           node-version: 12
 
       - name: Determine the target branch (blue / green)
+        id: target-branch
         env:
           GH_PAGES: true
         run: |
@@ -33,10 +34,12 @@ jobs:
             target_branch="gh-pages-blue"
           fi
 
+           echo "TARGET_BRANCH=$target_branch" >> $GITHUB_OUTPUT
+
       - name: Deploy to GitHub Pages
         env:
           ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
-          TARGET_BRANCH: $target_branch
+          TARGET_BRANCH: ${{ steps.target-branch.outputs.TARGET_BRANCH }}
         run: |
           npm run gh-pages
 
