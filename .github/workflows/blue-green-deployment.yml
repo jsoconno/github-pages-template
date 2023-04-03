@@ -12,8 +12,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -25,38 +23,26 @@ jobs:
         npm ci
         GH_PAGES=true npm run build
 
-    - name: Blue-green deployment
+    - name: Deploy to GitHub Pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        CURRENT_BRANCH=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/$GITHUB_REPOSITORY/pages | jq -r '.source.branch')
-        if [ "$CURRENT_BRANCH" == "gh-pages-blue" ]; then
-          NEW_BRANCH="gh-pages-green"
+        git config user.name "github-actions"
+        git config user.email "github-actions@users.noreply.github.com"
+
+        # Determine the current branch (blue or green)
+        current_branch=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
+        if [ "$current_branch" = "gh-pages-blue" ]; then
+          target_branch="gh-pages-green"
         else
-          NEW_BRANCH="gh-pages-blue"
+          target_branch="gh-pages-blue"
         fi
 
-        git config user.name "GitHub Action"
-        git config user.email "github-action@users.noreply.github.com"
-        git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+        # Deploy to the target branch
+        npm run deploy -- -b $target_branch
 
-        # Create a temporary branch and move the built app to the root of the new branch
-        git checkout --orphan temp_$NEW_BRANCH
-        git rm --cached -r -f .
-        cp -r dist/* .
-        rm -rf dist
-
-        # Commit and push the changes to the new branch
-        git add .
-        git commit -m "Update GitHub Pages"
-        git push origin temp_$NEW_BRANCH:$NEW_BRANCH
-
-        # Switch back to the original branch and delete the temporary branch
-        git checkout -f $GITHUB_REF
-        git branch -D temp_$NEW_BRANCH
-
-    - name: Update GitHub Pages branch
-      run: |
-        curl -X PATCH \
+        # Update the GitHub Pages source branch
+        curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/$GITHUB_REPOSITORY/pages \
-          -d "{\"source\": {\"branch\": \"$NEW_BRANCH\", \"path\": \"/\"}}"
+          https://api.github.com/repos/${{ github.repository }}/pages \
+          -d "{\"source\":{\"branch\":\"$target_branch\",\"path\":\"/\"}}"
