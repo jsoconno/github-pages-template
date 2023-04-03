@@ -10,38 +10,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 12
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
 
-    - name: Install dependencies and build the app
-      run: |
-        npm ci
-        GH_PAGES=true npm run build
+      - name: Install dependencies and build the app
+        run: |
+          npm ci
+          GH_PAGES=true npm run build
 
-    - name: Deploy to GitHub Pages
-      run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@users.noreply.github.com"
+      - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
 
-        # Determine the current branch (blue or green)
-        current_branch=$(curl -s -H "Authorization: token ${{ secrets.ACTIONS_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
-        if [ "$current_branch" = "gh-pages-blue" ]; then
-          target_branch="gh-pages-green"
-        else
-          target_branch="gh-pages-blue"
-        fi
+          # Determine the current branch (blue or green)
+          current_branch=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
+          if [ "$current_branch" = "gh-pages-blue" ]; then
+            target_branch="gh-pages-green"
+            if ! git ls-remote origin refs/heads/gh-pages-blue; then
+              git branch gh-pages-blue
+              git push origin gh-pages-blue
+            fi
+          else
+            target_branch="gh-pages-blue"
+            if ! git ls-remote origin refs/heads/gh-pages-green; then
+              git branch gh-pages-green
+              git push origin gh-pages-green
+            fi
+          fi
 
-        # Deploy to the target branch
-        # npx gh-pages -d dist -r 'https://${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git' -- -b $target_branch
-        npx gh-pages -d dist -r 'https://github-actions:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git' -- -b $target_branch
+          # Deploy to the target branch
+          npx gh-pages -d dist -r "https://github-actions:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" -- -b $target_branch
 
-        # Update the GitHub Pages source branch
-        curl -X PATCH -H "Authorization: token ${{ secrets.ACTIONS_TOKEN }}" \
-          -H "Accept: application/vnd.github+json" \
-          https://api.github.com/repos/${{ github.repository }}/pages \
-          -d "{\"source\":{\"branch\":\"$target_branch\",\"path\":\"/\"}}"
+          # Update the GitHub Pages source branch
+          curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/pages \
+            -d "{\"source\":{\"branch\":\"$target_branch\",\"path\":\"/\"}}"
