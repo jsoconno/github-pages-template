@@ -32,8 +32,8 @@ jobs:
         env:
           ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
-          # git config user.name "github-actions"
-          # git config user.email "github-actions@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
 
           # # Stash any local changes, including untracked files
           # git stash save --include-untracked
