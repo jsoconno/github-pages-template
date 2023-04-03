@@ -44,7 +44,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           npm ci
-          git pull
           npm run gh-pages
 
       - name: Update GitHub Pages source branch
