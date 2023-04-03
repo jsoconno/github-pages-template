@@ -51,7 +51,7 @@ jobs:
           git add .
           git commit -m 'Update GitHub Pages'
           git pull origin $TARGET_BRANCH"
-          git subtree push --prefix dist origin $TARGET_BRANCH
+          git subtree push --prefix dist origin '$TARGET_BRANCH'
 
           echo $TARGET_BRANCH
           # Set GitHub Pages source
