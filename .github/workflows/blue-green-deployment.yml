@@ -30,20 +30,22 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
+          # Create and set the gh-pages-blue and gh-pages-green branches if they don't exist
+          if ! git ls-remote origin refs/heads/gh-pages-blue; then
+            git checkout -b gh-pages-blue
+            git push origin gh-pages-blue
+          fi
+          if ! git ls-remote origin refs/heads/gh-pages-green; then
+            git checkout -b gh-pages-green
+            git push origin gh-pages-green
+          fi
+
           # Determine the current branch (blue or green)
           current_branch=$(curl -s -H "Authorization: token $ACTIONS_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
           if [ "$current_branch" = "gh-pages-blue" ]; then
             target_branch="gh-pages-green"
-            if ! git ls-remote origin refs/heads/gh-pages-blue; then
-              git branch gh-pages-blue
-              git push origin gh-pages-blue
-            fi
           else
             target_branch="gh-pages-blue"
-            if ! git ls-remote origin refs/heads/gh-pages-green; then
-              git branch gh-pages-green
-              git push origin gh-pages-green
-            fi
           fi
 
           # Deploy to the target branch
