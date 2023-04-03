@@ -48,7 +48,7 @@ jobs:
           git branch
 
           GH_PAGES=true npm
-          run build
+          npm run build
           git add .
           git commit -m 'Update GitHub Pages'
           git subtree push --prefix dist origin gh-pages
