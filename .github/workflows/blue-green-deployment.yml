@@ -22,9 +22,10 @@ jobs:
         id: target-branch
         env:
           GH_PAGES: true
+          ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           # Determine the current branch (blue or green)
-          current_branch=$(curl -s -H "Authorization: token $ACTIONS_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
+          current_branch=$(curl -L "Accept: application/vnd.github+json" -H "Authorization: Bearer $ACTIONS_TOKEN" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
           echo $current_branch
           if [ "$current_branch" = "gh-pages-blue" ]; then
             echo "green"
@@ -46,10 +47,6 @@ jobs:
           npm ci
           npm run gh-pages
 
-      - name: Update GitHub Pages source branch
-        env:
-          ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
-        run: |
-          curl -L -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $ACTIONS_TOKEN" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/${{ github.repository }}/pages -d '{"source":{"branch": "gh-pages-blue","path":"/"}}'
-
-          
+          echo $TARGET_BRANCH
+          # Set GitHub Pages source
+          curl -L -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $ACTIONS_TOKEN" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/${{ github.repository }}/pages -d '{"source":{"branch": "'"$TARGET_BRANCH"'","path":"/"}}'
