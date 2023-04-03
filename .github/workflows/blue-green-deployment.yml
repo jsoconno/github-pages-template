@@ -48,9 +48,18 @@ jobs:
 
           npm ci
           npm run build
-          git add .
-          git commit -m 'Update GitHub Pages'
-          git subtree push --prefix dist origin $TARGET_BRANCH
+          git checkout $TARGET_BRANCH
+          git rm -r *
+          git commit -m "Remove all files from target branch"
+          git merge --allow-unrelated-histories --squash -s subtree --no-commit main
+          git mv dist/* .
+          git mv dist/.* . 2> /dev/null || true # Move hidden files (ignore errors for . and .. directories)
+          git rm -r dist
+          git commit -m "Overwrite target branch with dist folder contents"
+          git push origin $TARGET_BRANCH --force
+          # git add .
+          # git commit -m 'Update GitHub Pages'
+          # git subtree push --prefix dist origin $TARGET_BRANCH
 
           echo $TARGET_BRANCH
           # Set GitHub Pages source
