@@ -42,6 +42,7 @@ jobs:
           TARGET_BRANCH: ${{ steps.target-branch.outputs.TARGET_BRANCH }}
         run: |
           npm ci
+          git pull
           npm run gh-pages
 
       - name: Update GitHub Pages source branch
