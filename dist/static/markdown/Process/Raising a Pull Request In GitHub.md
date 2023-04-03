@@ -1,6 +1,7 @@
 <!--
 title: Raise A Pull Request in Github
-icon: code
+icon: github
+icon-style: fab
 tags: pull-request, code
 description: Process documentation for how to raise a pull request in GitHub.
 -->

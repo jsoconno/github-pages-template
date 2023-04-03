@@ -2,10 +2,11 @@ $nav-width: 200px;
 
 .header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   min-height: 55px;
   max-height: 55px;
-  overflow: hidden;
+  padding: 0 0.5rem;
   color: $color-core-white;
   background: $color-core-blue;
 }
@@ -97,12 +98,12 @@ $nav-width: 200px;
 
 @media (min-width: 780px) {
 
-  .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 0.5rem;
-  }
+  // .header {
+  //   display: flex;
+  //   flex-direction: row;
+  //   align-items: center;
+  //   padding: 0 0.5rem;
+  // }
 
   .header__hamburger,
   .nav__icon--close {
@@ -142,4 +143,3 @@ $nav-width: 200px;
     border-left: none;
   }
 }
-

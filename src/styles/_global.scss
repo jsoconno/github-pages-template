@@ -57,6 +57,11 @@ main {
   position: relative;
   display: block;
   width: 100%;
+  height: 75%;
+  margin-right: 50px;
+  margin-left: 50px;
+  overflow: hidden;
+  border-radius: 250px;
 }
 
 .nav__search-input {
@@ -66,6 +71,11 @@ main {
   background-color: #fff;
   border: none;
   border-bottom: 1px solid #ddd;
+}
+
+.nav__search-input:focus {
+  border-radius: 250px;
+  outline: none;
 }
 
 .nav__search-icon {
@@ -201,5 +211,31 @@ a:focus,
     position: initial;
     left: initial;
     height: initial;
+  }
+
+  .nav__search {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 250px;
+  }
+
+  .nav__search-input {
+    width: 100%;
+    height: 45px;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    background-color: #fff;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .nav__search-icon {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 }
