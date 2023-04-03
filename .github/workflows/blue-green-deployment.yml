@@ -35,9 +35,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
 
-          # # Stash any local changes, including untracked files
-          # git stash save --include-untracked
-
           # Determine the current branch (blue or green)
           current_branch=$(curl -s -H "Authorization: token $ACTIONS_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
           echo $current_branch
@@ -51,30 +48,4 @@ jobs:
 
           TARGET_BRANCH=$target_branch npm run gh-pages
 
-          # # Check if the branch exists and create it only if it does not
-          # branch_exists=$(git ls-remote --heads origin $target_branch | wc -l)
-          # if [ $branch_exists -eq 0 ]; then
-          #   git checkout -b $target_branch
-          # else
-          #   git fetch origin $target_branch:$target_branch
-          #   git checkout $target_branch
-          # fi
-          # git remote set-url origin "https://${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git"
-
-          # echo $target_branch
-          # git branch
-          # ls
-
-          # git add .
-          # if [ -n "$(git status --porcelain)" ]; then
-          #   git commit -m 'Update GitHub Pages'
-          #   git push origin $target_branch
-          # else
-          #   echo "No changes to commit"
-          # fi
-
-          # # Update the GitHub Pages source branch
-          # curl -X PATCH -H "Authorization: token $ACTIONS_TOKEN" \
-          #   -H "Accept: application/vnd.github+json" \
-          #   https://api.github.com/repos/${{ github.repository }}/pages \
-          #   -d "{\"source\":{\"branch\":\"${target_branch}\",\"path\":\"/\"}}"
+          
