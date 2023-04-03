@@ -12,8 +12,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -26,14 +24,12 @@ jobs:
         GH_PAGES=true npm run build
 
     - name: Deploy to GitHub Pages
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@users.noreply.github.com"
 
         # Determine the current branch (blue or green)
-        current_branch=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
+        current_branch=$(curl -s -H "Authorization: token ${{ secrets.ACTIONS_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
         if [ "$current_branch" = "gh-pages-blue" ]; then
           target_branch="gh-pages-green"
         else
@@ -41,11 +37,11 @@ jobs:
         fi
 
         # Deploy to the target branch
-        # npx gh-pages -d dist -r 'https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git' -- -b $target_branch
-        npx gh-pages -d dist -r 'https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git' -- -b $target_branch
+        # npx gh-pages -d dist -r 'https://${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git' -- -b $target_branch
+        npx gh-pages -d dist -r 'https://github-actions:$${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git' -- -b $target_branch
 
         # Update the GitHub Pages source branch
-        curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
+        curl -X PATCH -H "Authorization: token ${{ secrets.ACTIONS_TOKEN }}" \
           -H "Accept: application/vnd.github+json" \
           https://api.github.com/repos/${{ github.repository }}/pages \
           -d "{\"source\":{\"branch\":\"$target_branch\",\"path\":\"/\"}}"
