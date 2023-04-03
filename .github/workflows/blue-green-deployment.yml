@@ -23,8 +23,8 @@ jobs:
           GH_PAGES: true
         run: |
           npm ci
-          npm run build
-          ls
+          # npm run build
+          # ls
 
       - name: Deploy to GitHub Pages
         env:
@@ -46,6 +46,7 @@ jobs:
 
           echo $target_branch
           git checkout -b $target_branch
+          git push
           npm run gh-pages -- --TARGET_BRANCH=$target_branch
 
           
