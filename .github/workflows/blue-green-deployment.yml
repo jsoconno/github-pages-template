@@ -41,6 +41,8 @@ jobs:
           ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
           TARGET_BRANCH: ${{ steps.target-branch.outputs.TARGET_BRANCH }}
         run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
           npm ci
           git pull
           npm run gh-pages
