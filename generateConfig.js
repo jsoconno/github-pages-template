@@ -10,7 +10,7 @@ const outputPath = path.join(__dirname, 'src', 'pageConfig.json');
 // Define the header navigation and landing page
 const headerNavigation = [
   {
-    name: 'Documentation X',
+    name: 'Documentation',
     path: '/documentation',
   },
 ];
@@ -118,7 +118,7 @@ function generatePageConfig() {
 
   // Initialize the page configuration object
   const pageConfig = {
-    appName: 'Git',
+    appName: 'X',
     headerNavigation,
     landingPage,
     tags: ['news', 'process'],

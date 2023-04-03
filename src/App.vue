@@ -41,6 +41,7 @@ export default {
       baseUrl: '',
       isNavOpen: false,
       tocItems: ConfigManager.getPages(),
+      content: [],
       searchResultsVisible: false,
       searchResults: null,
       searchKeywords: null
@@ -48,6 +49,15 @@ export default {
   },
   components: {
     Header
+  },
+  created () {
+    ConfigManager.getStatus()
+      .then((data) => {
+        if (data !== undefined) this.content = data
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
   },
   methods: {
     toggleMenu () {
@@ -61,15 +71,47 @@ export default {
       this.searchResults = results
       this.searchResultsVisible = true
     },
-    search () {
+    async search ($event) {
+      if (!this.content.length) {
+        try {
+          this.content = await ConfigManager.getStatus()
+        } catch (error) {
+          console.error('Error fetching content', error)
+        }
+      }
       if (this.searchKeywords) {
+        let query = Object.assign({}, this.$route.query, { search: this.searchKeywords })
+        this.$router.push({ query })
+
         this.searchResultsVisible = true
-        // Your search logic here
+        let filter = 'tag:'
+        if (this.searchKeywords.indexOf('tag:') > -1) {
+          this.searchResults = this.content.filter(result => {
+            let tags = (result.tags || []).map((tag) => {
+              return tag.toLowerCase()
+            })
+
+            let tagExists = false
+
+            for (let i = 0; i < tags.length; i++) {
+              if (tags[i].indexOf(this.searchKeywords.toLowerCase().replace(filter, '')) > -1) {
+                tagExists = true
+              }
+            }
+
+            return tagExists
+          })
+        } else {
+          this.searchResults = this.content.filter(result => {
+            return (result.text || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1 ||
+              (result.name || '').toLowerCase().indexOf(this.searchKeywords.toLowerCase()) > -1
+          })
+        }
       } else {
-        this.searchResultsVisible = false
-        let query = Object.assign({}, this.$route.query)
+        let query = this.$route.query
         delete query.search
-        this.$router.replace({ query })
+        this.$router.push({ query })
+        this.reset()
       }
     },
     searchTopic (tag) {
@@ -80,13 +122,19 @@ export default {
   },
   watch: {
     $route: {
+      immediate: true,
       handler: function (val, oldVal) {
-        let newSearchQuery = val.query.search || ''
-        let oldSearchQuery = oldVal.query.search || ''
-
-        if (newSearchQuery !== oldSearchQuery) {
-          this.searchKeywords = newSearchQuery
-          this.search()
+        let url = window.location.href
+        if (url.indexOf('?') > -1) {
+          let queryString = url.substring(url.indexOf('?') + 1)
+          let queryObj = JSON.parse('{"' + decodeURIComponent(queryString.replace(/&/g, '","').replace(/=/g, '": "')) + '"}')
+          if (queryObj && queryObj.search) {
+            this.searchKeywords = queryObj.search
+            this.search()
+          }
+        } else {
+          this.searchKeywords = ''
+          this.searchResultsVisible = false
         }
       }
     }

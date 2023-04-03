@@ -1,8 +1,8 @@
 {
-  "appName": "Git",
+  "appName": "X",
   "headerNavigation": [
     {
-      "name": "Documentation X",
+      "name": "Documentation",
       "path": "/documentation"
     }
   ],
