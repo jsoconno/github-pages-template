@@ -46,7 +46,7 @@ jobs:
 
           echo $target_branch
           git checkout -b $target_branch
-          git push -u origin $target_branch
           npm run gh-pages -- --TARGET_BRANCH=$target_branch
+          git push -u origin $target_branch
 
           
