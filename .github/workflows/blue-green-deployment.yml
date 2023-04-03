@@ -27,7 +27,6 @@ jobs:
 
     - name: Blue-green deployment
       run: |
-        # Determine the active branch (blue or green)
         CURRENT_BRANCH=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/$GITHUB_REPOSITORY/pages | jq -r '.source.branch')
         if [ "$CURRENT_BRANCH" == "gh-pages-blue" ]; then
           NEW_BRANCH="gh-pages-green"
@@ -35,24 +34,27 @@ jobs:
           NEW_BRANCH="gh-pages-blue"
         fi
 
-        # # Checkout the new branch
-        # git checkout $NEW_BRANCH
-
-        # # Move the built app to the new branch
-        # mv dist/* .
-        # rm -rf dist
-
-        # Commit and push the changes to the new branch
         git config user.name "GitHub Action"
         git config user.email "github-action@users.noreply.github.com"
+        git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+
+        # Create a temporary branch and move the built app to the root of the new branch
+        git checkout --orphan temp_$NEW_BRANCH
+        git rm --cached -r .
+        cp -r dist/* .
+        rm -rf dist
+
+        # Commit and push the changes to the new branch
         git add .
         git commit -m "Update GitHub Pages"
-        git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
-        git subtree push --prefix dist origin $NEW_BRANCH
+        git push origin temp_$NEW_BRANCH:$NEW_BRANCH
+
+        # Switch back to the original branch and delete the temporary branch
+        git checkout -f $GITHUB_REF
+        git branch -D temp_$NEW_BRANCH
 
     - name: Update GitHub Pages branch
       run: |
-        # Switch the active branch for GitHub Pages
         curl -X PATCH \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
