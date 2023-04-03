@@ -40,7 +40,7 @@ jobs:
 
         # Create a temporary branch and move the built app to the root of the new branch
         git checkout --orphan temp_$NEW_BRANCH
-        git rm --cached -r .
+        git rm --cached -r -f .
         cp -r dist/* .
         rm -rf dist
 
