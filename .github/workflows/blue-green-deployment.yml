@@ -39,7 +39,7 @@ jobs:
         fi
 
         # Deploy to the target branch
-        npm gh-pages -d dist -r 'https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git' -- -b $target_branch
+        npx gh-pages -d dist -r 'https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git' -- -b $target_branch
 
         # Update the GitHub Pages source branch
         curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
