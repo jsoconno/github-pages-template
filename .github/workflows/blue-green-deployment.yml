@@ -32,6 +32,7 @@ jobs:
 
           # Determine the current branch (blue or green)
           current_branch=$(curl -s -H "Authorization: token $ACTIONS_TOKEN" https://api.github.com/repos/${{ github.repository }}/pages | jq -r .source.branch)
+          echo $current_branch
           if [ "$current_branch" = "gh-pages-blue" ]; then
             echo "green"
             target_branch="gh-pages-green"
@@ -40,9 +41,14 @@ jobs:
             target_branch="gh-pages-blue"
           fi
 
-          git checkout -b $target_branch
+          # Check if the branch exists and create it only if it does not
+          branch_exists=$(git ls-remote --heads origin $target_branch | wc -l)
+          if [ $branch_exists -eq 0 ]; then
+            git checkout -b $target_branch
+          else
+            git checkout $target_branch
+          fi
           git remote set-url origin "https://${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git"
-          # git push origin $target_branch
 
           echo $target_branch
           git branch
