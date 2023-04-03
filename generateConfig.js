@@ -118,7 +118,7 @@ function generatePageConfig() {
 
   // Initialize the page configuration object
   const pageConfig = {
-    appName: 'X',
+    appName: 'GitHub Pages',
     headerNavigation,
     landingPage,
     tags: ['news', 'process'],
