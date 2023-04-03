@@ -38,10 +38,12 @@ jobs:
           ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
           TARGET_BRANCH: $target_branch
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-
-          npm ci
           npm run gh-pages
+
+      - name: Update GitHub Pages source branch
+        env:
+          ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+        run: |
+          curl -s -X PATCH -H "Authorization: token $ACTIONS_TOKEN" -d '{"source": {"branch": "'"$target_branch"'"}}' https://api.github.com/repos/${{ github.repository }}/pages
 
           
