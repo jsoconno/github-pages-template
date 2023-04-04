@@ -5,7 +5,8 @@ GitHub Pages Documentation Framework is a user-friendly solution for creating pr
 ## Key Features
 * Web app for displaying Markdown-based documentation
 * Mobile-friendly, responsive design
-* Supports any depth of document hierarchy (auto-generated)
+* Supports any depth of document hierarchy
+* Automated routing configuration based on markdown folder and file structure
 * Allows title, description, icon, tags, and owner for each folder and document
 * Live search/filtering with keywords and tags (no server infrastructure required)
 * Optimized for deployment on GitHub Pages
@@ -18,7 +19,7 @@ GitHub Pages Documentation Framework is a user-friendly solution for creating pr
 
 * Write your documents in Markdown and place them in the `/static/markdown` folder
 * Create a GIT repository and import your documentations trunk
-* Deploy to GitHub Pages using `npm run gh-pages`
+* Deploy to GitHub Pages using `export TARGET_BRANCH=gh-pages && npm run gh-pages`
 * In your GitHub repository > Settings > scroll down to "GitHub Pages", ensure it points to your "gh-pages" branch
 * Find the link to your GitHub Pages deployment on that screen as well
 
@@ -47,4 +48,5 @@ npm run build-search
 npm run build --report
 
 # deploy playbook to GH pages (includes build and deploy to GH pages)
+export TARGET_BRANCH=gh-pages
 npm run gh-pages

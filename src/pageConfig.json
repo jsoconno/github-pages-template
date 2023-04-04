@@ -68,10 +68,10 @@
                   "description": "How to install Visual Studio Code.",
                   "icon": [
                     "fas",
-                    "computer"
+                    "poo"
                   ],
                   "tags": [
-                    "code"
+                    "install"
                   ],
                   "owner": "",
                   "markdown": "/static/markdown/Process/Deeper/This Is A Really Long Name For A File To Have.md"
@@ -88,7 +88,7 @@
                 "computer"
               ],
               "tags": [
-                "code"
+                "install"
               ],
               "owner": "",
               "markdown": "/static/markdown/Process/Installing VS Code.md"
