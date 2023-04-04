@@ -1,7 +1,7 @@
 <!--
 title: Install VS Code
 icon: computer
-tags: code
+tags: install
 description: How to install Visual Studio Code.
 -->
 1. **Download VS Code** - Download the installer for your operating system from the official [VS Code website](https://code.visualstudio.com/download).
