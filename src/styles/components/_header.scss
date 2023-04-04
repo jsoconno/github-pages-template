@@ -25,13 +25,7 @@ $nav-width: 200px;
 }
 
 .header__name {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  padding: 10px;
-  font-weight: 200;
-  color: $color-core-white;
-  white-space: nowrap;
+  display: none;
 }
 
 .header__name b {
@@ -108,6 +102,16 @@ $nav-width: 200px;
   .header__hamburger,
   .nav__icon--close {
     display: none;
+  }
+
+  .header__name {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 10px;
+    font-weight: 200;
+    color: $color-core-white;
+    white-space: nowrap;
   }
 
   .nav {
